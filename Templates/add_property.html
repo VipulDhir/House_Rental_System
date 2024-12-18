@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Property</title>
+</head>
+<body>
+    <h1>Add a New Property</h1>
+    <form action="/add_property" method="POST" enctype="multipart/form-data">
+        <label for="title">Title:</label>
+        <input type="text" name="title" required><br><br>
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" required><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" name="price" required><br><br>
+
+        <label for="type">Property Type:</label>
+        <select name="type" required>
+            <option value="apartment">Apartment</option>
+            <option value="villa">Villa</option>
+            <option value="house">House</option>
+        </select><br><br>
+
+        <label for="image">Property Image:</label>
+        <input type="file" name="image" accept="image/*"><br><br>
+
+        <button type="submit">Add Property</button>
+    </form>
+    <a href="/landlord_dashboard"><button>Back to Dashboard</button></a>
+</body>
+</html>

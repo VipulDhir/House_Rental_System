@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, Landlord!</h1>
+    <a href="/add_property">Add Property</a>
+    <h2>Your Properties</h2>
+    <ul>
+        {% for property in properties %}
+        <li>
+            <strong>{{ property.title }}</strong> - {{ property.location }}<br>
+            Price: {{ property.price }}<br>
+            Type: {{ property.type }}<br>
+            <a href="/edit_property/{{ property._id }}">Edit</a>
+            <form action="/delete_property/{{ property._id }}" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        <hr>
+        {% endfor %}
+    </ul>
+
+    <h2>Manage Inquiries</h2>
+    <a href="/landlord_inquiries"><button>View Inquiries</button></a>
+</body>
+</html>

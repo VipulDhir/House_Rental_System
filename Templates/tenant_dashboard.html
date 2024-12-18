@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant Dashboard</title>
+    <style>
+        .property-card {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Tenant Dashboard</h1>
+    <a href="/search_properties"><button>Search For Properties</button></a>
+    <h2>Available Properties</h2>
+
+    {% if properties %}
+        <div>
+            {% for property in properties %}
+            <div class="property-card">
+                <h3>{{ property.title }}</h3>
+                <p><strong>Location:</strong> {{ property.location }}</p>
+                <p><strong>Price:</strong> ${{ property.price }}</p>
+                <p><strong>Type:</strong> {{ property.type }}</p>
+                {% if property.image %}
+                    <img src="data:image/png;base64,{{ property.image }}" alt="Property Image">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}
+                <form action="/send_inquiry/{{ property._id }}" method="POST">
+                    <label for="message">Send Inquiry:</label><br>
+                    <textarea id="message" name="message" required></textarea><br>
+                    <button type="submit">Send Inquiry</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No properties available at the moment.</p>
+    {% endif %}
+</body>
+</html>

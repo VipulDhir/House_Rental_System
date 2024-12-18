@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Rental Properties</title>
+    <style>
+        .property-card {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Rental Properties</h1>
+
+    <!-- Search Form -->
+    <form method="POST">
+        <label for="location">Location:</label>
+        <input type="text" name="location" placeholder="e.g., JP Nagar"><br>
+
+        <label for="min_price">Min Price:</label>
+        <input type="number" name="min_price" placeholder="e.g., 500"><br>
+
+        <label for="max_price">Max Price:</label>
+        <input type="number" name="max_price" placeholder="e.g., 2000"><br>
+
+        <label for="min_bathrooms">Min Bathrooms:</label>
+        <input type="number" name="min_bathrooms" placeholder="e.g., 2"><br>
+
+        <label for="size">Size (e.g., 2 BHK):</label>
+        <input type="text" name="size" placeholder="e.g., 2 BHK"><br>
+
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    <!-- Search Results -->
+    <h2>Search Results</h2>
+    {% if properties %}
+        <div>
+            {% for property in properties %}
+            <div class="property-card">
+                <h3>Location: {{ property.location }}</h3>
+                <p><strong>Area Type:</strong> {{ property.area_type }}</p>
+                <p><strong>Size:</strong> {{ property.size }}</p>
+                <p><strong>Total Sqft:</strong> {{ property.total_sqft }}</p>
+                <p><strong>Bathrooms:</strong> {{ property.bath }}</p>
+                <p><strong>Balcony:</strong> {{ property.balcony }}</p>
+                <p><strong>Price:</strong> {{ property.price }}</p>
+                <p><strong>Availability:</strong> {{ property.availability }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No properties match your search criteria.</p>
+    {% endif %}
+</body>
+</html>

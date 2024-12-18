@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Inquiries</title>
+</head>
+<body>
+    <h1>Inquiries for Your Properties</h1>
+    <ul>
+        {% for inquiry in inquiries %}
+        <li>
+            <strong>Property Title:</strong> {{ inquiry.property_title }}<br>
+            <strong>Message:</strong> {{ inquiry.message }}<br>
+            <strong>Tenant Email:</strong> {{ inquiry.tenant_email }}
+            <hr>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/landlord_dashboard"><button>Back to Dashboard</button></a>
+</body>
+</html>

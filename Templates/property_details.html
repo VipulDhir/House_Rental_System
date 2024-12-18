@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details</title>
+</head>
+<body>
+    <h1>{{ property.title }}</h1>
+    <p><strong>Location:</strong> {{ property.location }}</p>
+    <p><strong>Price:</strong> {{ property.price }}</p>
+    <p><strong>Type:</strong> {{ property.type }}</p>
+    <p><strong>Description:</strong> {{ property.description }}</p>
+
+    {% if property.image_url %}
+    <img src="{{ property.image_url }}" alt="Property Image" style="width:300px;height:auto;">
+    {% else %}
+    <p><em>No image available</em></p>
+    {% endif %}
+
+    <a href="/tenant_dashboard">Back to Dashboard</a>
+</body>
+</html>

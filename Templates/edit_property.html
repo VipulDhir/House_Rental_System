@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Property</title>
+</head>
+<body>
+    <h1>Edit Property</h1>
+    <form method="POST">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ property.title }}" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required>{{ property.description }}</textarea><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" value="{{ property.price }}" required><br><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="{{ property.location }}" required><br><br>
+
+        <label for="type">Type:</label>
+        <select id="type" name="type" required>
+            <option value="Apartment" {% if property.type == 'Apartment' %}selected{% endif %}>Apartment</option>
+            <option value="Villa" {% if property.type == 'Villa' %}selected{% endif %}>Villa</option>
+            <option value="Studio" {% if property.type == 'Studio' %}selected{% endif %}>Studio</option>
+        </select><br><br>
+
+        <button type="submit">Update Property</button>
+    </form>
+</body>
+</html>
