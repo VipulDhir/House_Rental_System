@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Rental Properties</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         /* General Styling */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif; /* Use Roboto font */
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-color: #f0f2f5;
             color: #333;
         }
 
@@ -19,85 +20,87 @@
         header {
             background-color: #007BFF;
             color: white;
-            padding: 10px 20px;
+            padding: 20px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-sizing: border-box;
         }
 
         header h1 {
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            font-weight: 500; /* Added weight for better visibility */
         }
 
         .home-button {
-            padding: 8px 15px;
+            padding: 10px 20px;
             background-color: white;
             color: #007BFF;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: bold;
             border-radius: 5px;
-            border: 1px solid #007BFF;
-            transition: background-color 0.3s, color 0.3s;
+            border: 2px solid #007BFF;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
         }
 
         .home-button:hover {
             background-color: #0056b3;
             color: white;
-        }
-
-        /* Footer Styling */
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        footer a {
-            color: #007BFF;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
+            transform: translateY(-2px);
         }
 
         /* Form Styling */
         form {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid #ddd;
         }
 
         label {
             display: block;
-            margin: 10px 0 5px;
+            margin-bottom: 10px;
             font-weight: bold;
+            color: #333;
+            font-size: 1rem;
         }
 
-        input, button {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin: 5px 0 15px;
-            border: 1px solid #ccc;
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 20px 0;
+            border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 1rem;
+            background-color: #f9f9f9;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
 
         button[type="submit"] {
             background-color: #007BFF;
             color: white;
             border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 1.1rem;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         button[type="submit"]:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
         }
 
         /* Property Cards */
@@ -105,52 +108,70 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            margin: 20px auto;
+            margin: 30px auto;
             max-width: 1200px;
         }
 
         .property-card {
-            border: 1px solid #ccc;
-            margin: 10px;
-            padding: 15px;
+            border: 1px solid #ddd;
+            margin: 15px;
+            padding: 20px;
             border-radius: 8px;
-            background: white;
-            width: 300px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: #ffffff;
+            width: 280px;
+            text-align: left;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .property-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .property-card h3 {
+            color: #007BFF;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .property-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+
+        .property-card p strong {
+            color: #007BFF;
         }
 
         /* Centered Search Results */
         h2 {
             text-align: center;
             color: #007BFF;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
         }
 
         /* Pagination Section */
         .pagination-section {
-            margin: 20px auto;
+            margin: 30px auto;
             text-align: center;
         }
 
         .pagination {
             display: inline-flex;
-            gap: 10px;
+            gap: 15px;
         }
 
         .pagination button {
-            padding: 5px 10px;
-            border: 1px solid #ccc;
+            padding: 8px 18px;
+            border: 1px solid #007BFF;
             border-radius: 5px;
             background-color: #007BFF;
             color: white;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 1rem;
             transition: background-color 0.3s, transform 0.2s;
         }
 
@@ -171,9 +192,27 @@
         }
 
         .pagination span {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #333;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -227,52 +266,65 @@
 
     <script>
         const propertiesData = JSON.parse('{{ properties | tojson | safe }}');
-        const propertiesContainer = document.getElementById('properties-container');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const pageInfo = document.getElementById('page-info');
+const propertiesContainer = document.getElementById('properties-container');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const pageInfo = document.getElementById('page-info');
 
-        let currentPage = 1;
-        const limit = 6;
+let currentPage = 1;
+const limit = 6;
 
-        function renderProperties() {
-            propertiesContainer.innerHTML = '';
-            const start = (currentPage - 1) * limit;
-            const end = start + limit;
-            const pageProperties = propertiesData.slice(start, end);
+function renderProperties() {
+    propertiesContainer.innerHTML = '';
+    
+    // Check if there's any data
+    if (propertiesData.length === 0) {
+        propertiesContainer.innerHTML = '<p>No properties found.</p>';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        pageInfo.textContent = 'Page 1 of 1';
+        return;
+    }
 
-            pageProperties.forEach(property => {
-                const card = document.createElement('div');
-                card.classList.add('property-card');
-                card.innerHTML = `
-                    <h3>Location: ${property.location}</h3>
-                    <p><strong>Area Type:</strong> ${property.area_type}</p>
-                    <p><strong>Size:</strong> ${property.size}</p>
-                    <p><strong>Total Sqft:</strong> ${property.total_sqft}</p>
-                    <p><strong>Bathrooms:</strong> ${property.bath}</p>
-                    <p><strong>Balcony:</strong> ${property.balcony}</p>
-                    <p><strong>Price:</strong> ${property.price}</p>
-                    <p><strong>Availability:</strong> ${property.availability}</p>
-                `;
-                propertiesContainer.appendChild(card);
-            });
+    const start = (currentPage - 1) * limit;
+    const end = start + limit;
+    const pageProperties = propertiesData.slice(start, end);
 
-            pageInfo.textContent = `Page ${currentPage} of ${Math.ceil(propertiesData.length / limit)}`;
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === Math.ceil(propertiesData.length / limit);
-        }
+    pageProperties.forEach(property => {
+        const card = document.createElement('div');
+        card.classList.add('property-card');
+        card.innerHTML = `
+            <h3>Location: ${property.location}</h3>
+            <p><strong>Area Type:</strong> ${property.area_type}</p>
+            <p><strong>Size:</strong> ${property.size}</p>
+            <p><strong>Total Sqft:</strong> ${property.total_sqft}</p>
+            <p><strong>Bathrooms:</strong> ${property.bath}</p>
+            <p><strong>Balcony:</strong> ${property.balcony}</p>
+            <p><strong>Price:</strong> ${property.price}</p>
+            <p><strong>Availability:</strong> ${property.availability}</p>
+        `;
+        propertiesContainer.appendChild(card);
+    });
 
-        prevBtn.addEventListener('click', () => {
-            currentPage--;
-            renderProperties();
-        });
+    const totalPages = Math.ceil(propertiesData.length / limit);
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+}
 
-        nextBtn.addEventListener('click', () => {
-            currentPage++;
-            renderProperties();
-        });
+prevBtn.addEventListener('click', () => {
+    currentPage--;
+    renderProperties();
+});
 
-        renderProperties();
+nextBtn.addEventListener('click', () => {
+    currentPage++;
+    renderProperties();
+});
+
+renderProperties();
+
     </script>
 </body>
 </html>

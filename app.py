@@ -31,6 +31,7 @@ app.add_url_rule('/buy_property/<property_id>', view_func=buy_property ,methods=
 # Routes
 @app.route('/')
 def home():
+    return render_template('index.html')
     return redirect(url_for('register'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -86,5 +87,6 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
