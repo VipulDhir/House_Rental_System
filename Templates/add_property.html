@@ -1,34 +1,294 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Add Property</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        body {
+
+            font-family: 'Poppins', sans-serif;
+
+            margin: 0;
+
+            padding: 0;
+
+            line-height: 1.8;
+
+            color: #333;
+
+            overflow-x: hidden;
+
+            background-color: #fdfdfd;
+
+        }
+
+
+        header {
+
+    position: relative;
+
+    background: linear-gradient(to right, rgba(44, 62, 80, 0.9), rgba(192, 57, 43, 0.9)),
+
+                url('https://source.unsplash.com/1600x900/?real-estate,property');
+
+    background-size: cover;
+
+    background-position: center;
+
+    color: #fff;
+
+    padding: 60px 10%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+header h1 {
+
+    margin: 0;
+
+    font-size: 3em;
+
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+
+    flex: 1;
+
+}
+
+
+header nav a {
+
+    color: #fff;
+
+    font-size: 1rem;
+
+    text-decoration: none;
+
+    padding: 10px 20px;
+
+    background: rgba(192, 57, 43, 0.8);
+
+    border-radius: 5px;
+
+    transition: background 0.3s;
+
+}
+
+
+header nav a:hover {
+
+    background: rgba(231, 76, 60, 0.8);
+
+}
+
+
+
+        main {
+
+            padding: 40px 10%;
+
+            background: #f9f9f9;
+
+        }
+
+
+        main h2 {
+
+            color: #2c3e50;
+
+            font-weight: 600;
+
+            border-bottom: 3px solid #2c3e50;
+
+            padding-bottom: 10px;
+
+            margin-bottom: 30px;
+
+            font-size: 2em;
+
+            text-transform: uppercase;
+
+            text-align: center;
+
+        }
+
+
+        form {
+
+            max-width: 650px;
+
+            margin: 0 auto;
+
+            background: #fff;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+
+        }
+
+
+        form label {
+
+            font-size: 1.1rem;
+
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: #555;
+
+        }
+
+
+        form input, form select, form button {
+
+            width: 100%;
+
+            padding: 0.8rem;
+
+            margin-bottom: 1.5rem;
+
+            border: 1px solid #ddd;
+
+            border-radius: 5px;
+
+            font-size: 1rem;
+
+            box-sizing: border-box;
+
+        }
+
+
+        form button {
+
+            background: #c0392b;
+
+            color: #fff;
+
+            cursor: pointer;
+
+            transition: background 0.3s;
+
+        }
+
+
+        form button:hover {
+
+            background: #e74c3c;
+
+        }
+
+
+        footer {
+
+            background: #2c3e50;
+
+            color: #fff;
+
+            text-align: center;
+
+            padding: 15px 0;
+
+        }
+
+
+        footer p {
+
+            margin: 0;
+
+            font-size: 0.9rem;
+
+        }
+
+
+    </style>
+
 </head>
+
 <body>
-    <h1>Add a New Property</h1>
-    <form action="/add_property" method="POST" enctype="multipart/form-data">
-        <label for="title">Title:</label>
-        <input type="text" name="title" required><br><br>
 
-        <label for="location">Location:</label>
-        <input type="text" name="location" required><br><br>
+    <header>
 
-        <label for="price">Price:</label>
-        <input type="number" name="price" required><br><br>
+        <h1>Add Property</h1>
 
-        <label for="type">Property Type:</label>
-        <select name="type" required>
-            <option value="apartment">Apartment</option>
-            <option value="villa">Villa</option>
-            <option value="house">House</option>
-        </select><br><br>
+        <nav>
 
-        <label for="image">Property Image:</label>
-        <input type="file" name="image" accept="image/*"><br><br>
+            <a href="/landlord_dashboard">Back to Dashboard</a>
 
-        <button type="submit">Add Property</button>
-    </form>
-    <a href="/landlord_dashboard"><button>Back to Dashboard</button></a>
+        </nav>
+
+
+    </header>
+
+    <main>
+
+        <h2>Add a New Property</h2>
+
+        <form action="/add_property" method="POST" enctype="multipart/form-data">
+
+            <label for="title">Title:</label>
+
+            <input type="text" name="title" placeholder="Enter property title" required>
+
+
+            <label for="location">Location:</label>
+
+            <input type="text" name="location" placeholder="Enter location" required>
+
+
+            <label for="price">Price:</label>
+
+            <input type="number" name="price" placeholder="Enter price" required>
+
+
+            <label for="type">Property Type:</label>
+
+            <select name="type" required>
+
+                <option value="apartment">Apartment</option>
+
+                <option value="villa">Villa</option>
+
+                <option value="house">House</option>
+
+            </select>
+
+
+            <label for="image">Property Image:</label>
+
+            <input type="file" name="image" accept="image/*">
+
+
+            <button type="submit">Add Property</button>
+
+        </form>
+
+    </main>
+
+    <footer>
+
+        <p>&copy; 2024 Real Estate Management System. All rights reserved.</p>
+
+    </footer>
+
 </body>
+
 </html>

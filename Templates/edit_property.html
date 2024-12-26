@@ -4,28 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Property</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(to right, rgba(44, 62, 80, 0.9), rgba(192, 57, 43, 0.9)),
+                        url('https://source.unsplash.com/1600x900/?house,real-estate');
+            background-size: cover;
+            background-position: center;
+            overflow-x: hidden;
+            padding: 0 10%;
+        }
+
+        h1 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        input, textarea, select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        input:hover, textarea:hover, select:hover {
+            background-color: #f9f9f9;
+        }
+
+    </style>
 </head>
 <body>
     <h1>Edit Property</h1>
     <form method="POST">
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" value="{{ property.title }}" required><br><br>
+        <input type="text" id="title" name="title" value="{{ property.title }}" required>
 
         <label for="description">Description:</label>
-        <textarea id="description" name="description" required>{{ property.description }}</textarea><br><br>
+        <textarea id="description" name="description" required>{{ property.description }}</textarea>
 
         <label for="price">Price:</label>
-        <input type="number" id="price" name="price" value="{{ property.price }}" required><br><br>
+        <input type="number" id="price" name="price" value="{{ property.price }}" required>
 
         <label for="location">Location:</label>
-        <input type="text" id="location" name="location" value="{{ property.location }}" required><br><br>
+        <input type="text" id="location" name="location" value="{{ property.location }}" required>
 
         <label for="type">Type:</label>
         <select id="type" name="type" required>
             <option value="Apartment" {% if property.type == 'Apartment' %}selected{% endif %}>Apartment</option>
             <option value="Villa" {% if property.type == 'Villa' %}selected{% endif %}>Villa</option>
             <option value="Studio" {% if property.type == 'Studio' %}selected{% endif %}>Studio</option>
-        </select><br><br>
+        </select>
 
         <button type="submit">Update Property</button>
     </form>

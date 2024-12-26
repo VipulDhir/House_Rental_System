@@ -4,19 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landlord Inquiries</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #f9f9f9, #e3e3e3);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffdd57;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: auto;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #007BFF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        footer a:hover {
+            color: #ffdd57;
+        }
+
+        /* Inquiry List */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 700px;
+        }
+        li {
+            background: white;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        li:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        li hr {
+            border: none;
+            height: 1px;
+            background: #ddd;
+            margin: 15px 0;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Back Button */
+        a {
+            text-decoration: none;
+        }
+        a button {
+            display: block;
+            margin: 20px auto;
+        }
+
+        /* Message Styles */
+        .toggle-message {
+            color: #007BFF;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .message {
+            display: none;
+            margin-top: 15px;
+            color: #555;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Keyframes for Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
-    <h1>Inquiries for Your Properties</h1>
-    <ul>
-        {% for inquiry in inquiries %}
-        <li>
-            <strong>Property Title:</strong> {{ inquiry.property_title }}<br>
-            <strong>Message:</strong> {{ inquiry.message }}<br>
-            <strong>Tenant Email:</strong> {{ inquiry.tenant_email }}
-            <hr>
-        </li>
-        {% endfor %}
-    </ul>
-    <a href="/landlord_dashboard"><button>Back to Dashboard</button></a>
+    <header>
+        <h1>Landlord Inquiries</h1>
+        <nav>
+            
+            <a href="/landlord_dashboard">Dashboard</a>
+            
+        </nav>
+    </header>
+
+    <main>
+        <ul id="inquiriesList">
+            {% for inquiry in inquiries %}
+            <li>
+                <strong>Property Title:</strong> {{ inquiry.property_title }}<br>
+                <strong>Tenant Email:</strong> {{ inquiry.tenant_email }}<br>
+                <span class="toggle-message" onclick="toggleMessage(this)">Show Message</span>
+                <p class="message">{{ inquiry.message }}</p>
+                <hr>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <a href="/landlord_dashboard" onclick="return confirm('Are you sure you want to go back to the dashboard?')">
+            <button>Back to Dashboard</button>
+        </a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Landlord Portal. All Rights Reserved.</p>
+        <p>Need help? <a href="#">Contact Support</a></p>
+    </footer>
+
+    <script>
+        function toggleMessage(element) {
+            const message = element.nextElementSibling;
+            if (message.style.display === "none" || !message.style.display) {
+                message.style.display = "block";
+                element.textContent = "Hide Message";
+            } else {
+                message.style.display = "none";
+                element.textContent = "Show Message";
+            }
+        }
+    </script>
 </body>
 </html>

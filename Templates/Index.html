@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Information -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Rental Management System</title>
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Navigation Bar Styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            margin: auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        /* Navigation Links */
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        
+        .nav-links li {
+            margin: 0 1rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ffcc00; /* Color change on hover */
+        }
+        
+        /* Login Button */
+        .login-button a {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .login-button a:hover {
+            background-color: #e6b800; /* Hover effect */
+        }
+
+        /* Search Bar Styles */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 0.5rem;
+        }
+
+        .search-bar input {
+            border: none;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            width: 200px; /* Fixed width for the input field */
+        }
+
+        .search-bar button {
+            background-color: #ffcc00;
+            color: #333;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin-left: 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #e6b800; /* Hover effect for the button */
+        }
+
+        /* Hero Section Styles */
+        .hero {
+            background: url('photo-1622015663319-e97e697503ee.jpeg') no-repeat center center/cover;
+            height: 80vh; /* Hero section height */
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hero Content */
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Text shadow for contrast */
+            animation: shadowEffect 3s ease infinite; /* Shadow animation */
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Default text shadow */
+            animation: shadowEffect 3s ease infinite; /* Shadow effect animation */
+        }
+
+        /* Keyframes for changing text shadow colors */
+        @keyframes shadowEffect {
+            0% { text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.7); }
+            14% { text-shadow: 2px 2px 5px rgba(255, 165, 0, 0.7); }
+            28% { text-shadow: 2px 2px 5px rgba(255, 255, 0, 0.7); }
+            42% { text-shadow: 2px 2px 5px rgba(0, 128, 0, 0.7); }
+            57% { text-shadow: 2px 2px 5px rgba(0, 0, 255, 0.7); }
+            71% { text-shadow: 2px 2px 5px rgba(75, 0, 130, 0.7); }
+            85% { text-shadow: 2px 2px 5px rgba(238, 130, 238, 0.7); }
+            100% { text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.7); }
+        }
+
+        /* Button Styles */
+        .btn {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        /* Hover effect for button */
+        .btn:hover {
+            background-color: #e6b800; /* Change background on hover */
+            box-shadow: 0 4px 20px rgba(203, 35, 35, 0.3); /* Shadow effect */
+            transform: scale(1.05); /* Slightly increase button size */
+        }
+
+        /* Features Section Styles */
+        .features {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: #fff;
+        }
+
+        .features h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Features Box */
+        .feature-box {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        /* Individual Feature Box */
+        .feature {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            width: 30%;
+            margin: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover effect for features */
+        .feature:hover {
+            transform: scale(1.05); /* Slightly scale up on hover */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <div class="logo">HouseRentals</div> <!-- Logo of the site -->
+            <ul class="nav-links"> <!-- Navigation links -->
+               <!-- <li><a href="#">Home</a></li> -->
+                <li><a href="#">register</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Manage Your Rental Properties With Ease</h1> <!-- Main heading -->
+            <p>Track tenants, property details effortlessly. Make renting simple and organized.</p> <!-- Subheading -->
+            <a href="#" class="btn">Get Started</a> <!-- Button to get started -->
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Our Features</h2> <!-- Features heading -->
+        <div class="feature-box">
+            <div class="feature">
+                <h3>Property Management</h3>
+                <p>Manage all your properties in one place.</p>
+            </div>
+            <div class="feature">
+                <h3>Tenant Tracking</h3>
+                <p>Keep track of tenant details and rental agreements.</p>
+            </div>
+            <div class="feature">
+                <h3>Payment Management</h3>
+                <p>Automate and track rental payments easily.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 RentalEase. All Rights Reserved.</p> <!-- Footer text -->
+    </footer>
+</body>
+</html>

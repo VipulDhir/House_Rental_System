@@ -4,27 +4,266 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landlord Dashboard</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #fdfdfd;
+        }
+
+        /* Header styling */
+        header {
+            position: relative;
+            background: linear-gradient(to right, rgba(44, 62, 80, 0.9), rgba(192, 57, 43, 0.9)), 
+                        url('https://source.unsplash.com/1600x900/?house,rent');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            padding: 60px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header nav a {
+
+color: #fff;
+
+font-size: 1rem;
+
+text-decoration: none;
+
+padding: 10px 20px;
+
+background: rgba(192, 57, 43, 0.8);
+
+border-radius: 5px;
+
+transition: background 0.3s;
+
+}
+
+
+header nav a:hover {
+
+background: rgba(231, 76, 60, 0.8);
+
+}
+
+        /* Main content styling */
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        li:hover {
+            background-color: #e0f7fa;
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+
+        #search {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 5px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-group button {
+            background-color: #007bff;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-group button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, Landlord!</h1>
-    <a href="/add_property">Add Property</a>
-    <h2>Your Properties</h2>
-    <ul>
-        {% for property in properties %}
-        <li>
-            <strong>{{ property.title }}</strong> - {{ property.location }}<br>
-            Price: {{ property.price }}<br>
-            Type: {{ property.type }}<br>
-            <a href="/edit_property/{{ property._id }}">Edit</a>
-            <form action="/delete_property/{{ property._id }}" method="POST" style="display:inline;">
-                <button type="submit">Delete</button>
-            </form>
-        </li>
-        <hr>
-        {% endfor %}
-    </ul>
+    <header>
+        <h1>Welcome, Landlord!</h1>
+        <nav>
+            <a href="/add_property">Add Property</a>
+            <a href="/landlord_inquiries">View Inquiries</a>
+            
+        </nav>
+    </header>
 
-    <h2>Manage Inquiries</h2>
-    <a href="/landlord_inquiries"><button>View Inquiries</button></a>
+    <main>
+        <input type="text" id="search" placeholder="Search properties..." onkeyup="filterProperties()">
+        <h2>Your Properties</h2>
+        <ul id="property-list">
+            {% for property in properties %}
+            <li data-title="{{ property.title }}" data-location="{{ property.location }}">
+                Title: {{ property.title }}<br>
+                Location: {{ property.location }}<br>
+                Price: {{ property.price }}<br>
+                Type: {{ property.type }}<br>
+                <div class="button-group">
+                    <button onclick="window.location.href='/edit_property/{{ property._id }}'">Edit</button>
+                    <button class="delete-btn" onclick="confirmDelete('{{ property._id }}')">Delete</button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </main>
+
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal" id="delete-modal">
+        <p>Are you sure you want to delete this property?</p>
+        <button id="confirm-delete">Yes, Delete</button>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Real Estate Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function filterProperties() {
+            const search = document.getElementById('search').value.toLowerCase();
+            const properties = document.querySelectorAll('#property-list li');
+            properties.forEach(property => {
+                const title = property.getAttribute('data-title').toLowerCase();
+                const location = property.getAttribute('data-location').toLowerCase();
+                if (title.includes(search) || location.includes(search)) {
+                    property.style.display = '';
+                } else {
+                    property.style.display = 'none';
+                }
+            });
+        }
+
+        function confirmDelete(propertyId) {
+    const modal = document.getElementById('delete-modal');
+    const overlay = document.getElementById('modal-overlay');
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+
+    document.getElementById('confirm-delete').onclick = function () {
+        fetch(`/delete_property/${propertyId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Property deleted successfully!');
+                window.location.reload(); // Refresh to update the property list
+            } else {
+                alert('Failed to delete property.');
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting property:', error);
+            alert('An error occurred. Please try again.');
+        });
+
+        closeModal();
+    };
+}
+
+
+        function closeModal() {
+            const modal = document.getElementById('delete-modal');
+            const overlay = document.getElementById('modal-overlay');
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+
+        
+    </script>
 </body>
 </html>

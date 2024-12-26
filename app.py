@@ -1,12 +1,9 @@
 from flask import Flask, render_template, request, redirect, session, url_for
 from flask_bcrypt import Bcrypt
-from pymongo import MongoClient
 
-from werkzeug.utils import secure_filename
-import pandas as pd
 
 from landlord import landlord_dashboard,add_property,edit_property,delete_property,landlord_inquiries
-from tenant import tenant_dashboard,search_properties,send_inquiry
+from tenant import tenant_dashboard,search_properties,send_inquiry,buy_property
 from database import users_collection
 
 
@@ -28,6 +25,7 @@ app.add_url_rule('/landlord_inquiries',view_func=landlord_inquiries, methods=['G
 app.add_url_rule('/tenant_dashboard',view_func=tenant_dashboard, methods=['GET', 'POST'])
 app.add_url_rule('/search_properties',view_func=search_properties, methods=['GET', 'POST'])
 app.add_url_rule('/send_inquiry/<property_id>',view_func=send_inquiry, methods=['POST'])
+app.add_url_rule('/buy_property/<property_id>', view_func=buy_property ,methods=['POST'])
 
 
 # Routes

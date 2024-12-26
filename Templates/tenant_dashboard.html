@@ -5,51 +5,196 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tenant Dashboard</title>
     <style>
-        .property-card {
-            border: 1px solid #ccc;
-            margin: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            display: inline-block;
-            width: 300px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 20px;
             text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header nav {
+            margin-top: 10px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .properties-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .property-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
         img {
             max-width: 100%;
             height: auto;
             border-radius: 5px;
         }
+
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        footer {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .properties-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .properties-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to Tenant Dashboard</h1>
-    <a href="/search_properties"><button>Search For Properties</button></a>
-    <h2>Available Properties</h2>
+    <header>
+        <h1>Tenant Dashboard</h1>
+        <nav>
+            
+            <a href="/search_properties">Search Properties</a>
+        </nav>
+    </header>
 
-    {% if properties %}
-        <div>
-            {% for property in properties %}
-            <div class="property-card">
-                <h3>{{ property.title }}</h3>
-                <p><strong>Location:</strong> {{ property.location }}</p>
-                <p><strong>Price:</strong> ${{ property.price }}</p>
-                <p><strong>Type:</strong> {{ property.type }}</p>
-                {% if property.image %}
-                    <img src="data:image/png;base64,{{ property.image }}" alt="Property Image">
-                {% else %}
-                    <p>No image available</p>
-                {% endif %}
-                <form action="/send_inquiry/{{ property._id }}" method="POST">
-                    <label for="message">Send Inquiry:</label><br>
-                    <textarea id="message" name="message" required></textarea><br>
-                    <button type="submit">Send Inquiry</button>
-                </form>
-            </div>
-            {% endfor %}
+    <div class="content">
+        <h2>Available Properties</h2>
+
+        <div id="properties-container" class="properties-container"></div>
+
+        <div class="pagination">
+            <button id="prev-btn" disabled>Previous</button>
+            <span id="page-info"></span>
+            <button id="next-btn">Next</button>
         </div>
-    {% else %}
-        <p>No properties available at the moment.</p>
-    {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Real Estate Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const propertiesData = JSON.parse('{{ properties | tojson | safe }}');
+        const propertiesContainer = document.getElementById('properties-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const pageInfo = document.getElementById('page-info');
+
+        let currentPage = 1;
+        const limit = 6;
+
+        function renderProperties() {
+            propertiesContainer.innerHTML = '';
+            const start = (currentPage - 1) * limit;
+            const end = start + limit;
+            const pageProperties = propertiesData.slice(start, end);
+
+            pageProperties.forEach(property => {
+                const card = document.createElement('div');
+                card.classList.add('property-card');
+                card.innerHTML = `
+                    <h3>${property.title}</h3>
+                    <p><strong>Location:</strong> ${property.location}</p>
+                    <p><strong>Price:</strong> ${property.price}</p>
+                    <p><strong>Type:</strong> ${property.type}</p>
+                    ${property.image 
+                        ? `<img src="data:image/png;base64,${property.image}" alt="Property Image">` 
+                        : `<p>No image available</p>`}
+                    <form action="/send_inquiry/${property._id}" method="POST">
+
+                        <label for="message">Send Inquiry:</label><br>
+                        <textarea id="message" name="message" required></textarea><br>
+                        <button type="submit">Send Inquiry</button>
+                    </form>
+
+                    <form action="/buy_property/${property._id}" method="POST">
+                        <button type="submit">Buy</button>
+                    </form>
+                `;
+                propertiesContainer.appendChild(card);
+            });
+
+            pageInfo.textContent = `Page ${currentPage} of ${Math.ceil(propertiesData.length / limit)}`;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === Math.ceil(propertiesData.length / limit);
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentPage--;
+            renderProperties();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentPage++;
+            renderProperties();
+        });
+
+        renderProperties();
+    </script>
 </body>
 </html>
