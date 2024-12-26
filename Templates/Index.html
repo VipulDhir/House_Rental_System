@@ -108,17 +108,17 @@
 
         /* Hero Section Styles */
         .hero {
-            background: url('photo-1622015663319-e97e697503ee.jpeg') no-repeat center center/cover;
-            height: 80vh; /* Hero section height */
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 1rem;
-            position: relative;
-            overflow: hidden;
-        }
+        background: url("{{ url_for('static', filename='images/Photo.jpeg') }}") no-repeat center center/cover;
+        height: 80vh;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
 
         /* Hero Content */
         .hero-content h1 {
@@ -234,8 +234,9 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Manage Your Rental Properties With Ease</h1> <!-- Main heading -->
-            <p>Track tenants, property details effortlessly. Make renting simple and organized.</p> <!-- Subheading -->
-            <!-- <a href="{{ url_for('register') }}" class="btn">Get Started</a> -->
+            <p>Track tenants, property details effortlessly. Make renting simple and organized.</p> 
+            <!-- Subheading -->
+             <a href="{{ url_for('register') }}" class="btn">Get Started</a>
 
         </div>
     </section>
@@ -253,8 +254,8 @@
                 <p>Keep track of tenant details and rental agreements.</p>
             </div>
             <div class="feature">
-                <h3>Payment Management</h3>
-                <p>Automate and track rental payments easily.</p>
+                <h3>User-Friendly Interface</h3>
+                <p>Simple, intuitive, and efficient design.</p>
             </div>
         </div>
     </section>

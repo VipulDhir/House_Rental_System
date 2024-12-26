@@ -168,6 +168,20 @@ background: rgba(231, 76, 60, 0.8);
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        /* Header logout button styling */
+    .logout-btn {
+        background-color:  #c0392b;
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+    }
+
+    .logout-btn:hover {
+        background-color: #e74c3c;
+    }
     </style>
 </head>
 <body>
@@ -176,7 +190,7 @@ background: rgba(231, 76, 60, 0.8);
         <nav>
             <a href="/add_property">Add Property</a>
             <a href="/landlord_inquiries">View Inquiries</a>
-            
+            <a href="/logout" id="logout-btn" class="logout-btn">Logout</a>
         </nav>
     </header>
 

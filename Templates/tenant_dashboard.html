@@ -4,249 +4,305 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tenant Dashboard</title>
-    <style>body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f9f9f9;
-        color: #333;
-    }
-    
-    header {
-        background-color: #007BFF;
-        color: white;
-        padding: 15px 20px;
-        text-align: center;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-    header h1 {
-        margin: 0;
-        font-size: 24px;
-    }
-    
-    header nav {
-        margin-top: 10px;
-    }
-    
-    header nav a {
-        color: white;
-        text-decoration: none;
-        margin: 0 10px;
-        font-size: 18px;
-    }
-    
-    .content {
-        padding: 20px;
-    }
-    
-    .properties-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
-    
-    .property-card {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: white;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        gap: 15px;
-    }
-    
-    .property-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    .property-card div {
-        padding: 10px;
-        border-radius: 5px;
-        background: #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .property-card div:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    }
-    
-    .image-container {
-        width: 96%;
-        height: 150px;
-        border-radius: 5px;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f0f0f0; /* Placeholder color */
-        position: relative; /* Ensure the image is contained */
-    }
-    
-    .image-container img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease; /* Smooth transition */
-    }
-    
-    .image-container:hover img {
-        transform: scale(1.2); /* Scale the image to 120% on hover */
-    }
-    
-    .details-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        font-family: 'Georgia', serif;
-        color: #444;
-        text-align: center;
-    }
-    
-    .details-container h3 {
-        margin: 0;
-        font-size: 20px;
-        color: #333;
-    }
-    
-    .details-container p {
-        margin: 0;
-        font-size: 16px;
-        line-height: 1.5;
-    }
-    
-    .actions-container form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-    }
-    
-    .send-inquiry-btn, .buy-btn {
-        width: 100%;  /* Make the buttons flexible */
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        text-align: center;
-    }
-    
-    .send-inquiry-btn {
-        background-color: #28a745; /* Green for Send Inquiry */
-        color: white;
-    }
-    
-    .send-inquiry-btn:hover {
-        background-color: #218838;
-        transform: scale(1.05);
-    }
-    
-    .buy-btn {
-        background-color: #007bff; /* Blue for Buy */
-        color: white;
-    }
-    
-    .buy-btn:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
-    
-    /* Optional: Add a margin-bottom for spacing between forms */
-    .actions-container form:first-child {
-        margin-bottom: 20px;
-    }
-    
-    textarea {
-        width: 95%;
-        height: 60px;
-        resize: none;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-    }
-    
-    button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #007BFF;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-    
-    button:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
-    
-    .pagination {
-        margin: 20px 0;
-        text-align: center;
-    }
-    
-    .pagination button {
-        margin: 0 5px;
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: #007BFF;
-        color: white;
-        cursor: pointer;
-    }
-    
-    .pagination button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-    }
-    
-    footer {
-        background-color: #007BFF;
-        color: white;
-        text-align: center;
-        padding: 10px 20px;
-        position: relative;
-        bottom: 0;
-        width: 100%;
-    }
-    
-    footer p {
-        margin: 0;
-        font-size: 14px;
-    }
-    
-    @media (max-width: 768px) {
-        .properties-container {
-            grid-template-columns: repeat(2, 1fr);
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
         }
-    }
-    
-    @media (max-width: 480px) {
-        .properties-container {
-            grid-template-columns: 1fr;
+
+        header {
+            background: linear-gradient(90deg, #007bff, #0056b3); /* Gradient background */
+            color: white;
+            padding: 20px 40px; /* Increased padding */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-    }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-buttons button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .header-buttons button:first-child {
+            background-color: #28a745; /* Green for Search */
+        }
+
+        .header-buttons button:first-child:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .header-buttons button:last-child {
+            background-color: #dc3545; /* Red for Logout */
+        }
+
+        .header-buttons button:last-child:hover {
+            background-color: #c82333;
+            transform: scale(1.05);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .properties-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .property-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            gap: 15px;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .property-card div {
+            padding: 10px;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .property-card div:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-container {
+            width: 96%;
+            height: 150px;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0; /* Placeholder color */
+            position: relative; /* Ensure the image is contained */
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease; /* Smooth transition */
+        }
+
+        .image-container:hover img {
+            transform: scale(1.2); /* Scale the image to 120% on hover */
+        }
+
+        .details-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Georgia', serif;
+            color: #444;
+            text-align: center;
+        }
+
+        .details-container h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .details-container p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .actions-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .send-inquiry-btn, .buy-btn {
+            width: 100%;  /* Make the buttons flexible */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .send-inquiry-btn {
+            background-color: #28a745; /* Green for Send Inquiry */
+            color: white;
+        }
+
+        .send-inquiry-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .buy-btn {
+            background-color: #007bff; /* Blue for Buy */
+            color: white;
+        }
+
+        .buy-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Optional: Add a margin-bottom for spacing between forms */
+        .actions-container form:first-child {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 95%;
+            height: 60px;
+            resize: none;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .pagination {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        footer {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .properties-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .properties-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                padding: 15px 20px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-buttons {
+                margin-top: 10px;
+                flex-direction: column;
+            }
+
+            .header-buttons button {
+                width: 100%; /* Full width buttons on smaller screens */
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Tenant Dashboard</h1>
-        <nav>
-            <a href="/search_properties">Search Properties</a>
-        </nav>
+        <div class="header-content">
+            <h1>Tenant Dashboard</h1>
+            <div class="header-buttons">
+                <button onclick="window.location.href='/search_properties'">
+                    Search Properties
+                </button>
+                <button onclick="window.location.href='/logout'">
+                    Logout
+                </button>
+            </div>
+        </div>
     </header>
 
     <div class="content">
@@ -293,14 +349,14 @@
                     <div class="details-container">
                         <h3> ${property.title}</h3>
                         <p><strong>Location:</strong> ${property.location}</p>
-                        <p><strong>Price:</strong> ${property.price}</p>
+                        <p><strong>Price:&#x20b9;</strong> ${property.price}</p>
                         <p><strong>Type:</strong> ${property.type}</p>
                     </div>
                    <div class="actions-container">
     <!-- Send Inquiry Form -->
     <form action="/send_inquiry/${ property._id }" method="POST">
         <label for="message-${property._id}"><strong>Send Inquiry:</strong></label>
-        <textarea id="message-${property._id}" name="message" required></textarea>
+        <textarea id="message-${property._id}" name="message" required placeholder = "enter here..."></textarea>
         <button type="submit" class="send-inquiry-btn">Send Inquiry</button>
     </form>
     

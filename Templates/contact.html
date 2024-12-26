@@ -198,7 +198,7 @@
   <section class="contact-us">
     <div class="form-container">
       <h3>Send Us a Message</h3>
-      <form action="#" method="POST">
+      <form id="contact-form" onsubmit="return showAlert(event)">
         <div class="form-group">
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" required>
@@ -245,6 +245,13 @@
   <footer>
     <p>&copy; 20204 All Rights Reserved</p>
   </footer>
+
+  <script>
+    function showAlert(event) {
+      event.preventDefault(); // Prevent form submission
+      alert('Your message has been submitted!');
+    }
+  </script>
 
 </body>
 </html>
