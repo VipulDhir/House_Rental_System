@@ -221,10 +221,10 @@
             <div class="logo">HouseRentals</div> <!-- Logo of the site -->
             <ul class="nav-links"> <!-- Navigation links -->
                <!-- <li><a href="#">Home</a></li> -->
-                <li><a href="#">register</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="contact">Contact</a></li>
             </ul>
             
         </nav>
@@ -235,7 +235,7 @@
         <div class="hero-content">
             <h1>Manage Your Rental Properties With Ease</h1> <!-- Main heading -->
             <p>Track tenants, property details effortlessly. Make renting simple and organized.</p> <!-- Subheading -->
-            <a href="{{ url_for('register') }}" class="btn">Get Started</a>
+            <!-- <a href="{{ url_for('register') }}" class="btn">Get Started</a> -->
 
         </div>
     </section>

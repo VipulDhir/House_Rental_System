@@ -32,7 +32,14 @@ app.add_url_rule('/buy_property/<property_id>', view_func=buy_property ,methods=
 @app.route('/')
 def home():
     return render_template('index.html')
-    return redirect(url_for('register'))
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
